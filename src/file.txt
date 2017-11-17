@@ -1,0 +1,32 @@
+int main()
+{
+	float a;
+	a = 1.1;
+	int i, inc, j; 
+	i = 0; 
+	inc = 2;
+	j = 5;
+	int x, y;
+	read y;
+	x = 0;
+	while (i < j)
+	{
+		i = i + inc;
+		a = a*i;
+	}
+	if (a < 10.0)
+	{
+		print(a + i);
+	}
+	else{
+		if(x == y){
+			x = x + 6;
+		}
+		if((a == x) && (a == y) || (i != x)){
+			print(x);
+		}
+		else{
+			y = y + 3;
+		}	
+	}
+} 
