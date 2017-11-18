@@ -33,18 +33,20 @@ public class Num extends Expr{
 	
 	/* Método que realiza a avaliação sintatida do nó.
 	 * Neste caso, o lexema é retornado */
-	public Object evaluate() {
-		return this.token.getLexema();
+	public Float evaluate() {
+		return Float.valueOf(this.token.getLexema());
 	}
 	
 	/* Método que imprime a árvore em formato XML. 
 	 * Para tal, é impresso a tag com o nome da class(tipo de nó) junto com o lexam e o tipo.
 	 * Esta tag já é fechada*/
-	public void printArvore() {
+	public void printArvore(int level) {
+		String deslocamento = tabs(level);
+		
 		if(this.type.equals("INT"))
-			System.out.println("<Num valor='" +this.valorInteiro+"' tipo='integer'" + "/>");
+			System.out.println(deslocamento + "<Num valor='" +this.valorInteiro+"' tipo='integer'" + "/>");
 		else
-			System.out.println("<Num valor='" +this.valorPontoFlutuante+"' tipo='float'" + "/>");
+			System.out.println(deslocamento + "<Num valor='" +this.valorPontoFlutuante+"' tipo='float'" + "/>");
 	}
 	
 	public void generateCode()

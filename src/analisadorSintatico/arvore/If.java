@@ -35,24 +35,26 @@ public class If extends ASTnode{
 	/* Método que imprime a árvore em formato XML. 
 	 * Para tal, é impresso a tag com o nome da class(tipo de nó) e chama a mesma função para os filhos
 	 * Então, a tag de fechamento é impressa*/
-	public void printArvore() {
-		System.out.println("<If>");
+	public void printArvore(int level) {
+		String deslocamento = tabs(level);
+		
+		System.out.println(deslocamento + "<If>");
 		for(ASTnode child : children) {
 			if(child != null)
-				child.printArvore();
+				child.printArvore(level + 1);
 		}
-		System.out.println("</If>");
+		System.out.println(deslocamento + "</If>");
 	}
 	
 	/* Método que realiza a avaliação sintatida do nó.
 	 * Neste caso, o método avalia a expressão e converte o resultado para Boolean.
 	 * Caso este seja true, a lista da condição verdadeira será avaliada, 
 	 * caso o contrario, a lista da condição falsa será avaliada*/
-	public Object evaluate() {
+	public Float evaluate() {
 		
-		Boolean resultado = (Boolean)exp.evaluate();
+		Float resultado = exp.evaluate();
 		
-		if(resultado) {
+		if(resultado != 0f) {
 			if(Global.verboso)
 				System.out.println("Condição de If - Verdadeira");
 			for(ASTnode n: c_true)

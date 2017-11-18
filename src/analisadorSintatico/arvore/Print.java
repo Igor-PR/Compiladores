@@ -23,13 +23,15 @@ public class Print extends ASTnode{
 	/* Método que imprime a árvore em formato XML. 
 	 * Para tal, é impresso a tag com o nome da class(tipo de nó) e chama a mesma função para os filhos
 	 * Então, a tag de fechamento é impressa*/
-	public void printArvore() {
-		System.out.println("<Print>");
+	public void printArvore(int level) {
+		String deslocamento = tabs(level);
+		
+		System.out.println(deslocamento + "<Print>");
 		for(ASTnode child : children) {
 			if(child != null)
-				child.printArvore();
+				child.printArvore(level + 1);
 		}
-		System.out.println("</Print>");
+		System.out.println(deslocamento + "</Print>");
 	}
 
 }

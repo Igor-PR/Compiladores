@@ -49,7 +49,7 @@ public class IO {
 	}
 	
 	public static void escreverSaida(ArrayList<Token> listaTokens) throws IOException {
-		FileWriter arq = new FileWriter("lexico.txt");
+		FileWriter arq = new FileWriter("src/lexico.txt");
 	    PrintWriter gravarArq = new PrintWriter(arq);
 	    for(Token t: listaTokens){
 	    	gravarArq.printf(t.toFile());

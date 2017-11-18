@@ -31,19 +31,21 @@ public class Attr extends ASTnode {
 	/* Método que imprime a árvore em formato XML. 
 	 * Para tal, é impresso a tag com o nome da class(tipo de nó) e chama a mesma função para os filhos
 	 * Então, a tag de fechamento é impressa*/	
-	public void printArvore() {
-		System.out.println("<Attr>");
+	public void printArvore(int level) {
+		String deslocamento = tabs(level);
+		
+		System.out.println(deslocamento + "<Attr>");
 		for(ASTnode child : children) {
 			if(child != null)
-				child.printArvore();
+				child.printArvore(level + 1);
 		}
-		System.out.println("</Attr>");
+		System.out.println(deslocamento + "</Attr>");
 	}
 	
 	/* Método que realiza a avaliação sintatida do nó.
 	 * Neste caso, o ID, primeiro filho, recebe o valor da expressão, segundo filho.
 	 * Antes de realizar essa atribuição, o nó que contém a expressão é avaliado*/
-	public Object evaluate() {
+	public Float evaluate() {
 		
 		if(Global.verboso)
 			System.out.println("Avaliando atribuição");
@@ -55,7 +57,7 @@ public class Attr extends ASTnode {
 			System.out.println("Lexema do lado esquerdo: " + lex);
 		
 		TableEntry te = TabelaDeSimbolos.getInstance().getTabela().get(lex);
-		Object expr_value = this.children.get(1).evaluate();
+		Float expr_value = this.children.get(1).evaluate();
 		
 		if(Global.verboso)
 			System.out.println("Valor da expressão do lado direito: " + expr_value.toString());

@@ -2,6 +2,8 @@ package analisadorLexico;
 
 import java.util.ArrayList;
 
+import analisadorSintatico.Global;
+
 /*Classe Main que executa o programa*/
 public class Lexico {
 	
@@ -12,10 +14,22 @@ public class Lexico {
 		/*Chama o método de leitura do arquivo*/
 		
 		/*Utiliza o arquivo passado como argumento caso exista, se não, utiliza o default*/
-		if(args.length > 0)
-			path = "src/" + args[0];
-		else
-			path = "src/file.txt";
+		
+		path = "src/file.txt";
+		
+		if(args.length > 0) {
+			if (args[0].equals("--v")) {
+				Global.verboso = true;		
+			}	
+			else {
+				path = "src/" + args[0];
+				if(args.length > 1 && args[1].equals("--v")) {
+					Global.verboso = true;					
+				}	
+			}
+		}	
+			
+		System.out.println(path);	
 		
 		IO.lerArquivo(path);
 		

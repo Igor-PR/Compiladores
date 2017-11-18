@@ -18,7 +18,9 @@ public class Declaracoes {
 		if(Global.tokenAtual.getNomeToken().equals("ID")) {
 			//Cria uma entrada na tabela e atualiza as variáveis globais
 			Global.tokenAux = Global.tokenAtual;
-			TableEntry tableEntry = new TableEntry(Global.tokenAtual,Global.currentType,null);
+			System.out.println(Global.tokenAtual);
+			TableEntry tableEntry = new TableEntry(Global.tokenAtual,Global.currentType,0f);
+			System.out.println(tableEntry.toString());
 			Global.currentTableEntry = tableEntry;
 			
 			//Atualiza a tabela de símbolos

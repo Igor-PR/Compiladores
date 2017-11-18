@@ -19,38 +19,64 @@ public class RelOp extends Expr {
 	/* Método que imprime a árvore em formato XML. 
 	 * Para tal, é impresso a tag com o nome da class(tipo de nó) e também a operação . 
 	 * Depois chama a mesma função para os filhos então, a tag de fechamento é impressa*/
-	public void printArvore() {
-		System.out.println("<RelOp op='" +this.op + "'>");
+	public void printArvore(int level) {
+		String deslocamento = tabs(level);
+		
+		System.out.println(deslocamento + "<RelOp op='" +this.op + "'>");
 		for(ASTnode child : children) {
 			if(child != null)
-				child.printArvore();
+				child.printArvore(level + 1);
 		}
-		System.out.println("</RelOp>");
+		System.out.println(deslocamento + "</RelOp>");
 	}
 
 	/* Método que realiza a avaliação sintatida do nó.
 	 * Neste caso, o método avalia diferente a partir do tipo de operação relacional.
 	 * Para todos os tipos de operação, o objeto é convertido para string depois float e a operação relacional
 	 * é aplicada para os dois operandos da classe*/
-	public Object evaluate() {
-		if(this.op.equals("=="))
-            return Float.parseFloat((String)this.left.evaluate().toString()) == 
-            		Float.parseFloat((String)this.right.evaluate().toString());
-        if(this.op.equals("!="))
-            return Float.parseFloat((String)this.left.evaluate().toString()) != 
-            		Float.parseFloat((String)this.right.evaluate().toString());
-		if(this.op.equals(">") )
-            return Float.parseFloat((String)this.left.evaluate().toString()) > 
-            		Float.parseFloat((String)this.right.evaluate().toString());
-        if(this.op.equals(">="))
-            return Float.parseFloat((String)this.left.evaluate().toString()) >= 
-            		Float.parseFloat((String)this.right.evaluate().toString());
-        if(this.op.equals("<"))
-            return Float.parseFloat((String)this.left.evaluate().toString()) < 
-            		Float.parseFloat((String)this.right.evaluate().toString());
-        if(this.op.equals("<="))
-            return Float.parseFloat((String)this.left.evaluate().toString()) <= 
-            		Float.parseFloat((String)this.right.evaluate().toString());
+	public Float evaluate() {
+		if(this.op.equals("==")) {
+            if (Float.parseFloat((String)this.left.evaluate().toString()) == 
+            		Float.parseFloat((String)this.right.evaluate().toString()))
+				return 1f;
+			else
+				return 0f;
+		} 
+        if(this.op.equals("!=")) {
+            if(Float.parseFloat((String)this.left.evaluate().toString()) != 
+            		Float.parseFloat((String)this.right.evaluate().toString()))
+        		return 1f;
+        	else
+        		return 0f;
+        }    
+		if(this.op.equals(">") ) {
+            if (Float.parseFloat((String)this.left.evaluate().toString()) > 
+            		Float.parseFloat((String)this.right.evaluate().toString()))
+            	return 1f;
+        	else
+        		return 0f;
+		}    		
+        if(this.op.equals(">=")) {
+            if(Float.parseFloat((String)this.left.evaluate().toString()) >= 
+            		Float.parseFloat((String)this.right.evaluate().toString()))
+            	return 1f;
+        	else
+        		return 0f;
+        }    
+        if(this.op.equals("<")) {
+            if(Float.parseFloat((String)this.left.evaluate().toString()) < 
+            		Float.parseFloat((String)this.right.evaluate().toString()))
+            	return 1f;
+        	else
+        		return 0f;
+        }    
+        if(this.op.equals("<=")) {
+            if(Float.parseFloat((String)this.left.evaluate().toString()) <= 
+            		Float.parseFloat((String)this.right.evaluate().toString()))
+            	return 1f;
+        	else
+        		return 0f;
+        }    
         return null;
 	}
 	

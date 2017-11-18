@@ -23,7 +23,7 @@ public class Decl2 {
 			if(Global.tokenAtual.getNomeToken().equals("ID")) {
 				//Cria uma entrada na tabela e atualiza as variáveis globais
 				Global.tokenAux = Global.tokenAtual;
-				TableEntry te = new TableEntry(Global.tokenAtual,Global.currentType,null);
+				TableEntry te = new TableEntry(Global.tokenAtual,Global.currentType,0f);
 				Global.currentTableEntry = te;
 				
 				//Atualiza a tabela de símbolos

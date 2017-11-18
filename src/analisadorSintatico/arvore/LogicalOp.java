@@ -21,13 +21,15 @@ public class LogicalOp extends Expr{
 	/* Método que imprime a árvore em formato XML. 
 	 * Para tal, é impresso a tag com o nome da class(tipo de nó) e também a operação . 
 	 * Depois chama a mesma função para os filhos então, a tag de fechamento é impressa*/
-	public void printArvore() {
-		System.out.println("<LogicalOp op='" +this.op + "'>");
+	public void printArvore(int level) {
+		String deslocamento = tabs(level);
+		
+		System.out.println(deslocamento + "<LogicalOp op='" +this.op + "'>");
 		for(ASTnode child : children) {
 			if(child != null)
-				child.printArvore();
+				child.printArvore(level + 1);
 		}
-		System.out.println("</LogicalOp>");
+		System.out.println(deslocamento + "</LogicalOp>");
 	}
 	
 
@@ -35,11 +37,19 @@ public class LogicalOp extends Expr{
 	 * Neste caso, o método avalia diferente a partir do tipo de operação logica.
 	 * Para todos os tipos de operação, o objeto é convertido para Boolean e a operação logica
 	 * é aplicada para os dois operandos da classe*/
-	public Object evaluate() {
-		if(this.op.equals("&&") )
-            return (Boolean)this.left.evaluate() && (Boolean)this.right.evaluate();
-        if(this.op.equals("||"))
-            return (Boolean)this.left.evaluate() || (Boolean)this.right.evaluate();
+	public Float evaluate() {
+		if(this.op.equals("&&") ) {
+            if (this.left.evaluate() != 0f && this.right.evaluate() != 0f)
+            	return 1f;
+            else
+            	return 0f;
+		}    
+        if(this.op.equals("||")) {
+            if (this.left.evaluate() == 1f || this.right.evaluate() == 1f)
+            	return 1f;
+            else
+            	return 0f;
+        }    
         return null;
 	}
 	

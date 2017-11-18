@@ -34,7 +34,7 @@ public class ASTnode {
 	
 	/* Método que realiza a avaliação sintatida do nó.
 	 * Neste caso, o método apenas chama o método de avaliação para todos os fillhos*/
-	public Object evaluate() {
+	public Float evaluate() {
 		if(Global.verboso)
 			System.out.println("Avaliando nó " + this.nome);
 		for(ASTnode child : children) {
@@ -47,15 +47,30 @@ public class ASTnode {
 	/* Método que imprime a árvore em formato XML. 
 	 * Para tal, é impresso a tag com o nome da class(tipo de nó) e chama a mesma função para os filhos
 	 * Então, a tag de fechamento é impressa*/
-	public void printArvore() {
-		System.out.println("<ASTnode>");
+	
+	
+	public void printArvore(int level) {
+		String deslocamento = tabs(level);
+		
+		System.out.println(deslocamento + "<ASTnode>");
 		for(ASTnode child : children) {
 			if(child != null)
-				child.printArvore();
+				child.printArvore(level + 1);
 		}
-		System.out.println("</ASTnode>");
+		System.out.println(deslocamento + "</ASTnode>");
 	}
 	
+	public String tabs(int level)
+	{
+	  String deslocamento = "";
+	  while (level!=0)
+	  {
+	    level = level - 1;
+	    deslocamento += "    ";
+	  }
+	  return deslocamento;
+	}
+
 	
 	public void generateCode() {
 //		if(Global.verboso)

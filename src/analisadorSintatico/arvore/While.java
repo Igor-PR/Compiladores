@@ -32,31 +32,33 @@ public class While extends ASTnode{
 	/* Método que imprime a árvore em formato XML. 
 	 * Para tal, é impresso a tag com o nome da class(tipo de nó) junto com o lexam e o tipo.
 	 * Esta tag já é fechada*/
-	public void printArvore() {
-		System.out.println("<While>");
+	public void printArvore(int level) {
+		String deslocamento = tabs(level);
+		
+		System.out.println(deslocamento + "<While>");
 		for(ASTnode child : children) {
 			if(child != null)
-				child.printArvore();
+				child.printArvore(level + 1);
 		}
-		System.out.println("</While>");
+		System.out.println(deslocamento + "</While>");
 	}
 	
 	/* Método que realiza a avaliação sintatida do nó.
 	 * Neste caso, o método avalia a expressão e converte o resultado para Boolean.
 	 * Caso este seja true, a lista de nós será avaliada. 
 	 * Entrará em loop até que a expressão seja avaliada como false*/
-	public Object evaluate() {
+	public Float evaluate() {
 		
-		Boolean resultado = (Boolean)exp.evaluate();
+		Float resultado = exp.evaluate();
 		
-		while(resultado) {
+		while(resultado != 0f) {
 			if(Global.verboso)
 				System.out.println("Condição do while - True");
 			
 			for(ASTnode n: commands)
 				n.evaluate();
 			
-			resultado = (Boolean)exp.evaluate();
+			resultado = exp.evaluate();
 		}
 		if(Global.verboso)
 			System.out.println("Condição do while - False");

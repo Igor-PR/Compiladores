@@ -11,7 +11,7 @@ public class ArquivoSaida {
     public static PrintWriter gravarArq; 
     
     public static void openArq() throws IOException {
-    	arq = new FileWriter("TresEnderecos.txt");
+    	arq = new FileWriter("src/TresEnderecos.txt");
     	gravarArq = new PrintWriter(arq);
     }
     
@@ -20,7 +20,7 @@ public class ArquivoSaida {
     }
     
     public static void escreveArquivo(String texto) {
-    	gravarArq.printf(texto);
+    	gravarArq.println(texto);
     }
 
 }

@@ -4,6 +4,7 @@ import analisadorSintatico.Global;
 import analisadorSintatico.Match;
 import analisadorSintatico.arvore.ASTnode;
 import analisadorSintatico.arvore.Attr;
+import analisadorSintatico.arvore.Bloco;
 import analisadorSintatico.arvore.Expr;
 import analisadorSintatico.arvore.Id;
 import analisadorSintatico.arvore.If;
@@ -58,15 +59,16 @@ public class Comando {
 			//Compara com o token com o token "LBRACE"
 			Match.match("LBRACE");
 			
-			//Utliliza um comando while para encontrar escopos dentro de escopos
-			//nao precisa do while
+			ASTnode bloco = new ASTnode("bloco",null);
+			
 			while(!Global.tokenAtual.getNomeToken().equals("RBRACE")) {
 				//Recursividade da regra Comando
-				lista = Comando.run(lista);
+				bloco = Comando.run(lista);
 			}
 			//Compara com o token com o token "RBRACE"
 			Match.match("RBRACE");
-			return lista;
+
+			return bloco;
 		}
 		
 		/*ComandoSe*/
@@ -117,11 +119,12 @@ public class Comando {
 			
 			//Cria um nó generico para saber as funções dentro do while
 			ASTnode lista2 = new ASTnode("while",null);
-			
+//			lista2.children.add(expr_node);
 			//Recursividade da regra comando para o WHILE
 			lista2 = Comando.run(lista2);
 			
 			//Adiciona um nó filho do tipo WHILE a lista
+//			lista.children.add(lista2);
 			lista.children.add(new While(expr_node,lista2.children,null));
 			return lista;
 		}	

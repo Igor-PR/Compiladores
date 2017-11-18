@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		
 		Lexico.run(args);
-		Sintatico.run(args);
+		Sintatico.run();
 		CodigoTresEnderecos.run();
 	}
 }

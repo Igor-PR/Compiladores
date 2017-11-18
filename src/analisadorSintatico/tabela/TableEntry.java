@@ -9,10 +9,10 @@ public class TableEntry {
 	private String lexema;
 	private String tipo;
 	private int linhaCodigo;
-	private Object referencia;
+	private Float referencia;
 	
 	/*O objeto é instânciado recebendo um token, o tipo e seu valor */
-	public TableEntry(Token token, String tipo, Object referencia) {
+	public TableEntry(Token token, String tipo, Float referencia) {
 		
 		this.lexema = token.getLexema();
 		this.linhaCodigo = token.getLinhaCodigoFonte();
@@ -21,6 +21,10 @@ public class TableEntry {
 		
 	}
 	
+	public TableEntry() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Token getToken() {
 		return token;
 	}
@@ -33,10 +37,10 @@ public class TableEntry {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public Object getReferencia() {
+	public Float getReferencia() {
 		return referencia;
 	}
-	public void setReferencia(Object referencia) {
+	public void setReferencia(Float referencia) {
 		this.referencia = referencia;
 	}
 	

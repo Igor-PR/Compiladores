@@ -24,19 +24,21 @@ public class Read extends ASTnode {
 	/* Método que imprime a árvore em formato XML. 
 	 * Para tal, é impresso a tag com o nome da class(tipo de nó) e chama a mesma função para os filhos
 	 * Então, a tag de fechamento é impressa*/
-	public void printArvore() {
-		System.out.println("<Read>");
+	public void printArvore(int level) {
+		String deslocamento = tabs(level);
+		
+		System.out.println(deslocamento + "<Read>");
 		for(ASTnode child : children) {
 			if(child != null)
-				child.printArvore();
+				child.printArvore(level + 1);
 		}
-		System.out.println("</Read>");
+		System.out.println(deslocamento + "</Read>");
 	}
 	
 	/* Método que realiza a avaliação sintatida do nó.
 	 * Neste caso, o ID, primeiro filho, recebe o valor da tabela de simbolos. Se não existir,
 	 * e for do tipo INT, 0 será retornado. Se for do tipo FLOAT, 0.0 será retornado */
-	public Object evaluate() {
+	public Float evaluate() {
 		if(Global.verboso)
 			System.out.println("Avaliando read");
 		Id id_node = (Id) this.children.get(0);
@@ -46,10 +48,11 @@ public class Read extends ASTnode {
 		Object expr_value = te.getReferencia();
 
 		if (expr_value == null) {
-			if(te.getTipo().equals("INT"))
-				te.setReferencia(0);
-			else
-				te.setReferencia(0.0);
+			te.setReferencia(0f);
+//			if(te.getTipo().equals("INT"))
+//				te.setReferencia(0);
+//			else
+//				te.setReferencia(0.0);
 		}	
 		id_node.value = te.getReferencia();
 		

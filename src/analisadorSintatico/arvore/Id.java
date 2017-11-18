@@ -12,7 +12,7 @@ import codigoTresEnderecos.Operand;
 * */
 public class Id extends Expr{
 	
-	private TableEntry te;
+	private TableEntry te = new TableEntry();
 
 	public Id(Token token, ASTnode father) {
 		super("Id", father);
@@ -20,35 +20,40 @@ public class Id extends Expr{
 			System.out.println("Criando um nó do tipo Id");
 		this.token = token;
 		this.te = TabelaDeSimbolos.getInstance().getTabela().get(token.getLexema());
+		this.te.setToken(token);
 		this.value = te.getReferencia();
 	}
 	
 	/* Método que imprime a árvore em formato XML. 
 	 * Para tal, é impresso a tag com o nome da class(tipo de nó) junto com o lexam e o tipo.
 	 * Esta tag já é fechada*/
-	public void printArvore() {
+	public void printArvore(int level) {
+		String deslocamento = tabs(level);
+		
 		if(this.te.getTipo().equals("INT"))
-			System.out.println("<Id lexema='" +this.token.getLexema()+"' tipo='integer'" + "/>");
+			System.out.println(deslocamento + "<Id lexema='" +this.token.getLexema()+"' tipo='integer'" + "/>");
 		else
-			System.out.println("<Id lexema='" +this.token.getLexema()+"' tipo='float'" + "/>");
+			System.out.println(deslocamento + "<Id lexema='" +this.token.getLexema()+"' tipo='float'" + "/>");
 	}
 	
 
 	/* Método que realiza a avaliação sintatida do nó.
 	 * Neste caso, o método procura pelo lexema do ID na tabela de simbolos.
 	 * Caso este não seja nulo, o valor vai ser retornado, caso o contrario, retorna o inteiro 0*/
-	public Object evaluate() {
+	public Float evaluate() {
 		this.te  = TabelaDeSimbolos.getInstance().getTabela().get(this.token.getLexema());
+		
+		if(te.getReferencia() == null){
+			te.setReferencia(0f);
+		}
 		
 		if(Global.verboso)
 			System.out.println("Avaliando nó Id("+this.token.getLexema() +"). Valor armazenado: " + te.getReferencia().toString());
 		
-		if(te.getReferencia() != null){
-			return te.getReferencia();
-		}
-		else
-			return 0;
+		return te.getReferencia();
+
 	}
+	
 	
 	public void generateCode()
 	{

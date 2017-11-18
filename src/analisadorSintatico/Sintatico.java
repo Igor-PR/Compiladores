@@ -11,23 +11,24 @@ public class Sintatico {
 	private static String path;
 	private static ASTnode root;
 
-	public static void run(String[] args) throws Exception {
+	public static void run() throws Exception {
 		/*
 		 * 	Os argumentos passados para a main são o nome do arquivo e a flag --v para ativar
 		 * o modo verboso, ou simplesmente --v
 		 * */
-		if(args.length > 0) {
-			if (args[0].equals("--v")) {
-				Global.verboso = true;
-				path = "src/lexico.txt";
-			}	
-			else {
-				if(args[1].equals("--v"))
-					Global.verboso = true;		
-			}
-		}	
-		else
-			path = "src/lexico.txt";
+		
+		path = "src/lexico.txt";
+		
+//		if(args.length > 0) {
+//			if (args[0].equals("--v")) {
+//				Global.verboso = true;		
+//			}	
+//			else {
+//				if(args[1].equals("--v"))
+//					Global.verboso = true;		
+//			}
+//		}	
+
 		
 		//Inicia a lista de tokens a partir de um arquivo
 		listaTokens = new ArrayList<Token>(IO.lerArquivo(path));
@@ -41,7 +42,7 @@ public class Sintatico {
 		//Caso não exista erros
 		if(!Global.flag) {
 			//Imprime a árvore a partir da raiz
-			root.printArvore();
+			root.printArvore(0);
 			//e também avalia as funções da mesma
 			root.evaluate();
 			

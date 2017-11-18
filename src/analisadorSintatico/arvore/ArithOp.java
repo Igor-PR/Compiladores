@@ -40,13 +40,15 @@ public class ArithOp extends Expr {
 	/* Método que imprime a árvore em formato XML. 
 	 * Para tal, é impresso a tag com o nome da class(tipo de nó) e também a operação . 
 	 * Depois chama a mesma função para os filhos então, a tag de fechamento é impressa*/
-	public void printArvore() {
-		System.out.println("<ArithOp op='" +this.op + "'>");
+	public void printArvore(int level) {
+		String deslocamento = tabs(level);
+		
+		System.out.println(deslocamento + "<ArithOp op='" +this.op + "'>");
 		for(ASTnode child : children) {
 			if(child != null)
-				child.printArvore();
+				child.printArvore(level + 1);
 		}
-		System.out.println("</ArithOp>");
+		System.out.println(deslocamento + "</ArithOp>");
 	}
 
 	public void generateRValueCode()
