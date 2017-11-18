@@ -2,7 +2,7 @@ package codigoTresEnderecos;
 
 public class Temp {
 
-	public int n = 0;
+	public static int n = 0;
 	public String name;
 	public Temp() {
 		String s = String.valueOf(n++);

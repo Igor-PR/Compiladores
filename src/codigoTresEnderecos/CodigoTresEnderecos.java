@@ -14,6 +14,7 @@ public class CodigoTresEnderecos {
 		ArquivoSaida.openArq();
 		root.generateCode();
 		ArquivoSaida.closeArq();
+		System.out.println("Arquivo de três endereços criado!");
 	}
 
 }
