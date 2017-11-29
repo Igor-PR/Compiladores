@@ -54,29 +54,27 @@ public class LogicalOp extends Expr{
 	}
 	
 	public void generateBranchCode() {
-		if (this.op == "||")
-			{
-				this.children.get(0).true_label = this.true_label;
-			    this.children.get(0).false_label = new Label();
-			    this.children.get(1).true_label = this.true_label;
-			    this.children.get(1).false_label = this.false_label;
-			    this.children.get(0).generateBranchCode();
-			    if (this.children.get(0).getAddress() != null)
-			    	ArquivoSaida.escreveArquivo("if " + this.children.get(0).getAddress().getName() + " != 0 goto " +  
-			        this.children.get(0).true_label.getName());
-			    else
-			    	ArquivoSaida.escreveArquivo(this.children.get(0).false_label.getName() + ":");
-			    this.children.get(1).generateBranchCode();
-			    if (this.children.get(1).getAddress() != null)
-			    {
-			       ArquivoSaida.escreveArquivo("if " + this.children.get(1).getAddress().getName() + " == 0 goto " +  
-			       this.children.get(1).false_label.getName());
-			       ArquivoSaida.escreveArquivo("goto " + this.children.get(1).true_label.getName());
-			    }
-			  }
-			  else if (this.op == "&&")
-			  {
-			    this.children.get(0).true_label  = new Label();
+		if (this.op == "||"){
+			this.children.get(0).true_label = this.true_label;
+			this.children.get(0).false_label = new Label();
+			this.children.get(1).true_label = this.true_label;
+			this.children.get(1).false_label = this.false_label;
+			this.children.get(0).generateBranchCode();
+			if (this.children.get(0).getAddress() != null)
+			    ArquivoSaida.escreveArquivo("if " + this.children.get(0).getAddress().getName() + " != 0 goto " +  
+			    this.children.get(0).true_label.getName());
+			else
+			    ArquivoSaida.escreveArquivo(this.children.get(0).false_label.getName() + ":");
+			this.children.get(1).generateBranchCode();
+			if (this.children.get(1).getAddress() != null){
+				ArquivoSaida.escreveArquivo("if " + this.children.get(1).getAddress().getName() + " == 0 goto " +  
+			    this.children.get(1).false_label.getName());
+			    ArquivoSaida.escreveArquivo("goto " + this.children.get(1).true_label.getName());
+			}
+		}
+		else 
+			if (this.op == "&&"){
+				this.children.get(0).true_label  = new Label();
 			    this.children.get(0).false_label  = this.false_label;
 			    this.children.get(1).true_label  = this.true_label;
 			    this.children.get(1).false_label  = this.false_label;
@@ -93,7 +91,48 @@ public class LogicalOp extends Expr{
 			        this.children.get(1).false_label.getName());
 			    	ArquivoSaida.escreveArquivo("goto " + this.children.get(1).true_label.getName());
 			    }    
-			  }
+			}
+	}
+	
+	public void generateRValueCode() {
+		if (this.op == "||"){
+			this.children.get(0).true_label = this.true_label;
+			this.children.get(0).false_label = new Label();
+			this.children.get(1).true_label = this.true_label;
+			this.children.get(1).false_label = this.false_label;
+			this.children.get(0).generateRValueCode();
+			if (this.children.get(0).getAddress() != null)
+			    ArquivoSaida.escreveArquivo("if " + this.children.get(0).getAddress().getName() + " != 0 goto " +  
+			    this.children.get(0).true_label.getName());
+			else
+			    ArquivoSaida.escreveArquivo(this.children.get(0).false_label.getName() + ":");
+			this.children.get(1).generateRValueCode();
+			if (this.children.get(1).getAddress() != null){
+				ArquivoSaida.escreveArquivo("if " + this.children.get(1).getAddress().getName() + " == 0 goto " +  
+			    this.children.get(1).false_label.getName());
+			    ArquivoSaida.escreveArquivo("goto " + this.children.get(1).true_label.getName());
+			}
+		}
+		else 
+			if (this.op == "&&"){
+				this.children.get(0).true_label  = new Label();
+			    this.children.get(0).false_label  = this.false_label;
+			    this.children.get(1).true_label  = this.true_label;
+			    this.children.get(1).false_label  = this.false_label;
+			    this.children.get(0).generateRValueCode() ;
+			    if (this.children.get(0).getAddress()  != null) //Verifica se o nó filho é um Id, Num ou ArithOp verificando se ele possui endereço
+			    	ArquivoSaida.escreveArquivo("if " + this.children.get(0).getAddress().getName()  + " == 0 goto " +  
+			    	this.children.get(0).false_label.getName());
+			    else
+			    	ArquivoSaida.escreveArquivo(this.children.get(0).true_label.getName()  + ":");
+			    this.children.get(1).generateRValueCode() ;
+			    if (this.children.get(1).getAddress()  != null)
+			    {
+			    	ArquivoSaida.escreveArquivo("if " + this.children.get(1).getAddress().getName()  + " == 0 goto " +  
+			        this.children.get(1).false_label.getName());
+			    	ArquivoSaida.escreveArquivo("goto " + this.children.get(1).true_label.getName());
+			    }    
+			}
 	}
 	
 }

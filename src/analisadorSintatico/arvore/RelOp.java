@@ -87,5 +87,14 @@ public class RelOp extends Expr {
 	    			  this.children.get(1).getAddress().getName();
 	    ArquivoSaida.escreveArquivo("if " + test + " goto " +  this.true_label.getName());
 	    ArquivoSaida.escreveArquivo("goto " + this.false_label.getName());
-		}
+	}
+	
+	public void generateRValueCode() {
+		this.children.get(0).generateRValueCode() ;
+	    this.children.get(1).generateRValueCode() ;
+	    String test = this.children.get(0).getAddress().getName()  + this.op + 
+	    			  this.children.get(1).getAddress().getName();
+	    ArquivoSaida.escreveArquivo("if " + test + " goto " +  this.true_label.getName());
+	    ArquivoSaida.escreveArquivo("goto " + this.false_label.getName());
+	}
 }
