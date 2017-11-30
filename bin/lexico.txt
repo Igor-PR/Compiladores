@@ -82,10 +82,10 @@ RBRACE } 15
 INT int 16
 ID h 16
 ATTR = 16
+ID x 16
+OR || 16
 ID a 16
 GT > 16
 ID y 16
-OR || 16
-ID x 16
 RBRACE } 17
 $  19

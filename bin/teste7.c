@@ -13,5 +13,5 @@ int main()
     x = 3504;
     z = 23.4;
   }
-  int h = a > y || x
+  int h = x || a > y
 }

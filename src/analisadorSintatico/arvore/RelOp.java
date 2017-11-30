@@ -2,6 +2,9 @@ package analisadorSintatico.arvore;
 
 import analisadorSintatico.Global;
 import codigoTresEnderecos.ArquivoSaida;
+import codigoTresEnderecos.Label;
+import codigoTresEnderecos.Operand;
+import codigoTresEnderecos.Temp;
 
 /*
 	Classe que representa um nó RellOp da árvore sintatica.
@@ -90,11 +93,25 @@ public class RelOp extends Expr {
 	}
 	
 	public void generateRValueCode() {
+		Label true_label = new Label();		
+		Label false_label = new Label();
+		Temp t = new Temp();
+		
+		Operand operand = new Operand();
+		operand.setTemporary(t);
+		this.address = operand;
+		
 		this.children.get(0).generateRValueCode() ;
 	    this.children.get(1).generateRValueCode() ;
+	    
+	    
 	    String test = this.children.get(0).getAddress().getName()  + this.op + 
 	    			  this.children.get(1).getAddress().getName();
-	    ArquivoSaida.escreveArquivo("if " + test + " goto " +  this.true_label.getName());
-	    ArquivoSaida.escreveArquivo("goto " + this.false_label.getName());
+//	    ArquivoSaida.escreveArquivo("if " + test + " goto " +  this.true_label.getName());
+	    ArquivoSaida.escreveArquivo("if " + test + " goto " +  true_label.getName());
+	    ArquivoSaida.escreveArquivo(t.getName() + " = 0");
+	    ArquivoSaida.escreveArquivo("goto " + false_label.getName());
+	    ArquivoSaida.escreveArquivo(true_label.getName()+ ":" + t.getName() + " = 1");
+	    ArquivoSaida.escreveArquivo(false_label.getName()+":");    
 	}
 }
