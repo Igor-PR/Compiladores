@@ -1,46 +1,19 @@
+a = 1.1
+i = 0
+inc = 2
+j = 5
 x = 0
-y = 10
-a = 1.3
-if x<y goto L1
+L0:
+if i<j goto L1
 goto L2
 L1:
-t0 = a - 1.3
-t1 = y / a
-t2 = t0 * t1
-x = t2
+t0 = i + inc
+i = t0
+t1 = a * i
+a = t1
 goto L0
 L2:
-if x==y goto L4
-goto L5
-L4:
-t3 = x / y
-t4 = 2 * t3
-y = t4
+if a<10.0 goto L4
 goto L3
-L5:
-if x>y goto L7
-goto L6
-L7:
-x = a
-L6:
+L4:
 L3:
-L0:
-if x!=a goto L9
-goto L10
-L9:
-x = 3504
-goto L8
-L10:
-z = 23.4
-L8:
-if a>y goto L14
-t6 = 0
-goto L15
-L14:t6 = 1
-L15:
-goto L11
-t5 = 0
-goto L13
-L11:t5 = 1
-L13:
-h = t5

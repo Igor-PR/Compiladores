@@ -78,7 +78,8 @@ public class While extends ASTnode{
 					   						this.children.get(0).false_label.getName());
 		   else
 			   ArquivoSaida.escreveArquivo(this.children.get(0).true_label.getName()  + ":");
-		   this.children.get(1).generateCode() ; //Gera código para a lista de comandos
+		   for(int i = 1; i < this.children.size();i++)
+			   this.children.get(i).generateCode() ; //Gera código para a lista de comandos
 		   ArquivoSaida.escreveArquivo("goto " + this.begin.getName());
 		   ArquivoSaida.escreveArquivo(this.next.getName()  + ":");
 	}

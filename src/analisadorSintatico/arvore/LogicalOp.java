@@ -109,10 +109,6 @@ public class LogicalOp extends Expr{
 		this.address = operand;
 		
 		if (this.op == "||"){
-//			this.children.get(0).true_label = this.true_label;
-//			this.children.get(0).false_label = new Label();
-//			this.children.get(1).true_label = this.true_label;
-//			this.children.get(1).false_label = this.false_label;
 			this.children.get(0).generateRValueCode();
 			if (this.children.get(0).getAddress() != null) {
 				ArquivoSaida.escreveArquivo("goto " + true_label.getName());
@@ -136,7 +132,7 @@ public class LogicalOp extends Expr{
 			    this.children.get(0).generateRValueCode();
 			    if (this.children.get(0).getAddress()  == null) {
 			    	ArquivoSaida.escreveArquivo("goto" + false_label.getName());
-			    	ArquivoSaida.escreveArquivo(t.getName() + "= 1");
+			    	ArquivoSaida.escreveArquivo(t.getName() + " = 1");
 					ArquivoSaida.escreveArquivo("goto " + next_label.getName());
 			    }	
 			    else {
@@ -146,7 +142,7 @@ public class LogicalOp extends Expr{
 				    	ArquivoSaida.escreveArquivo("goto" + false_label.getName());
 				    }
 				    else {
-				    	ArquivoSaida.escreveArquivo(t.getName() + "= 1");
+				    	ArquivoSaida.escreveArquivo(t.getName() + " = 1");
 						ArquivoSaida.escreveArquivo("goto " + next_label.getName());
 				    }	
 			    }
